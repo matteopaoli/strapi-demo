@@ -2478,24 +2478,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@strapi/plugin-cloud@npm:4.20.4":
-  version: 4.20.4
-  resolution: "@strapi/plugin-cloud@npm:4.20.4"
-  dependencies:
-    "@strapi/design-system": "npm:1.15.0"
-    "@strapi/helper-plugin": "npm:4.20.4"
-    "@strapi/icons": "npm:1.15.0"
-    react-intl: "npm:6.4.1"
-  peerDependencies:
-    "@strapi/strapi": ^4.4.0
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
-    react-router-dom: 5.3.4
-    styled-components: 5.3.3
-  checksum: 10c0/0e0e2080bd3380644442195646455ab8e6ff7f7e5e7b69b405752cc7e26a8d3175698bf26434709a112b481254b184000cac384b719b0caec28d0114b317b625
-  languageName: node
-  linkType: hard
-
 "@strapi/plugin-content-manager@npm:4.20.4":
   version: 4.20.4
   resolution: "@strapi/plugin-content-manager@npm:4.20.4"
@@ -5008,7 +4990,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "corporate-blog-template@workspace:."
   dependencies:
-    "@strapi/plugin-cloud": "npm:4.20.4"
     "@strapi/plugin-i18n": "npm:4.20.4"
     "@strapi/plugin-seo": "npm:^1.9.8"
     "@strapi/plugin-users-permissions": "npm:4.20.4"

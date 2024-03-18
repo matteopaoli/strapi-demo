@@ -9,7 +9,7 @@ export async function fetchAPI(
   try {
     // Merge default and user options
     const mergedOptions = {
-      next: { revalidate: 600 },
+      // next: { revalidate: 600 },
       headers: {
         "Content-Type": "application/json",
       },
@@ -18,6 +18,7 @@ export async function fetchAPI(
 
     // Build request URL
     const queryString = qs.stringify(urlParamsObject);
+    console.log(getStrapiURL(`/api${path}${queryString ? `?${queryString}` : ""}`))
     const requestUrl = `${getStrapiURL(
       `/api${path}${queryString ? `?${queryString}` : ""}`
     )}`;

@@ -60,7 +60,7 @@ export default async function RootLayout({
   readonly children: React.ReactNode;
   readonly params: { lang: string };
 }) {
-  const global = await getGlobal(params.lang);
+  const global = await getGlobal("en");
   // TODO: CREATE A CUSTOM ERROR PAGE
   if (!global.data) return null;
   
@@ -75,7 +75,7 @@ export default async function RootLayout({
   );
 
   return (
-    <html lang={params.lang}>
+    <html lang="en">
       <body>
         <Navbar
           links={navbar.links}

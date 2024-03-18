@@ -799,15 +799,35 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    title: Attribute.String;
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     description: Attribute.Text &
       Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
       Attribute.SetMinMaxLength<{
         maxLength: 256;
       }>;
     slug: Attribute.UID<'api::article.article', 'title'>;
-    cover: Attribute.Media;
+    cover: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     category: Attribute.Relation<
       'api::article.article',
       'manyToOne',
@@ -821,13 +841,23 @@ export interface ApiArticleArticle extends Schema.CollectionType {
         'shared.slider',
         'shared.video-embed'
       ]
-    >;
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     authorsBio: Attribute.Relation<
       'api::article.article',
       'manyToOne',
       'api::author.author'
     >;
-    seo: Attribute.Component<'shared.seo'>;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -843,6 +873,12 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::article.article',
+      'oneToMany',
+      'api::article.article'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -883,39 +919,6 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
   };
 }
 
-export interface ApiBookingBooking extends Schema.CollectionType {
-  collectionName: 'bookings';
-  info: {
-    singularName: 'booking';
-    pluralName: 'bookings';
-    displayName: 'Booking';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    beginDate: Attribute.DateTime;
-    endDate: Attribute.DateTime;
-    customerName: Attribute.String;
-    RoomType: Attribute.Enumeration<['Basic', 'Business', 'Suite']>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::booking.booking',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::booking.booking',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiCategoryCategory extends Schema.CollectionType {
   collectionName: 'categories';
   info: {
@@ -927,15 +930,30 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   options: {
     draftAndPublish: false;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Attribute.UID<'api::category.category', 'name'>;
     articles: Attribute.Relation<
       'api::category.category',
       'oneToMany',
       'api::article.article'
     >;
-    description: Attribute.Text;
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -950,6 +968,12 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::category.category'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1177,30 +1201,6 @@ export interface ApiProductFeatureProductFeature extends Schema.CollectionType {
   };
 }
 
-export interface ApiRoomRoom extends Schema.CollectionType {
-  collectionName: 'rooms';
-  info: {
-    singularName: 'room';
-    pluralName: 'rooms';
-    displayName: 'Room';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    image: Attribute.Media;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::room.room', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::room.room', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1221,13 +1221,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
-      'api::booking.booking': ApiBookingBooking;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
       'api::lead-form-submission.lead-form-submission': ApiLeadFormSubmissionLeadFormSubmission;
       'api::page.page': ApiPagePage;
       'api::product-feature.product-feature': ApiProductFeatureProductFeature;
-      'api::room.room': ApiRoomRoom;
     }
   }
 }
